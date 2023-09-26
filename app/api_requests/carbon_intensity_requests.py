@@ -19,7 +19,7 @@ class CarbonIntensity(object):
         }
         self.base_url: str = "https://api.carbonintensity.org.uk/"
 
-class GenerationMix(CarbonIntensity):
+class GenerationMixAPI(CarbonIntensity):
     """
     Implements Generation Mix APIs from Carbon Intensity 
     """
