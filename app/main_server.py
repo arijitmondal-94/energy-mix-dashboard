@@ -14,7 +14,7 @@ async def root():
     return {"message": "FastAPI Online"}
 
 @app.get("/generation_mix/last_month")
-async def last_month_energy_mix() -> List[GenerationMixDTO]:
+async def last_month_energy_mix() -> GenerationMixDTO:
     """endpoint returns generation mix 
 
     Returns:
@@ -22,6 +22,7 @@ async def last_month_energy_mix() -> List[GenerationMixDTO]:
     """
     gen_mix_service = GenerationMixService()
     return gen_mix_service.get_last_months_energy_mix()
+
 
 
 def main():
