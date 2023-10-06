@@ -1,9 +1,12 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import FileResponse
 from logging import getLogger
 from app.api_requests.dto import GenerationMixDTO
-from app.services import GenerationMixService
+from app.services.service import GenerationMixService
 from typing import List
+from app.services.plots import generate_donut
+from pathlib import Path
 
 logger = getLogger(__name__)
 
@@ -20,9 +23,13 @@ async def last_month_energy_mix() -> GenerationMixDTO:
     Returns:
         List[GenerationMixDTO]: aggragted generation mix of the last complete month
     """
-    gen_mix_service = GenerationMixService()
-    return gen_mix_service.get_last_months_energy_mix()
+    return GenerationMixService.get_last_months_energy_mix()
 
+@app.get("/generation_mix/last_month/poster")
+async def last_month_energy_mix_poster() -> FileResponse:
+    e_mix = GenerationMixService.get_last_months_energy_mix()
+    file_path = generate_donut(e_mix, Path('./images'), 'donut')
+    return FileResponse(file_path, media_type='image/png')
 
 
 def main():

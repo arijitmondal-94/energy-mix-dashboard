@@ -100,6 +100,14 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "kaleido"
+version = "0.2.1"
+description = "Static image export for web-based visualization libraries with zero dependencies"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "numpy"
 version = "1.26.0"
 description = "Fundamental package for array computing in Python"
@@ -111,7 +119,7 @@ python-versions = "<3.13,>=3.9"
 name = "packaging"
 version = "23.1"
 description = "Core utilities for Python packages"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 
@@ -164,6 +172,18 @@ python-versions = ">=3.8"
 [package.extras]
 docs = ["furo", "olefile", "sphinx (>=2.4)", "sphinx-copybutton", "sphinx-inline-tabs", "sphinx-removed-in", "sphinxext-opengraph"]
 tests = ["check-manifest", "coverage", "defusedxml", "markdown2", "olefile", "packaging", "pyroma", "pytest", "pytest-cov", "pytest-timeout"]
+
+[[package]]
+name = "plotly"
+version = "5.17.0"
+description = "An open-source, interactive data visualization library for Python"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+packaging = "*"
+tenacity = ">=6.2.0"
 
 [[package]]
 name = "pluggy"
@@ -289,6 +309,17 @@ anyio = ">=3.4.0,<5"
 full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart", "pyyaml"]
 
 [[package]]
+name = "tenacity"
+version = "8.2.3"
+description = "Retry code until it succeeds"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+doc = ["reno", "sphinx", "tornado (>=4.5)"]
+
+[[package]]
 name = "typing-extensions"
 version = "4.7.1"
 description = "Backported and Experimental Type Hints for Python 3.7+"
@@ -336,7 +367,7 @@ standard = ["colorama (>=0.4)", "httptools (>=0.5.0)", "python-dotenv (>=0.13)",
 [metadata]
 lock-version = "1.1"
 python-versions = "3.11"
-content-hash = "81a940b4a88ff959ce059a06739b4f2e37e54a84f4a7e70df888d6daa6d7c946"
+content-hash = "5a96ab3ce6f6391260956732e6a8cf713f7b6b305ef7dbe36285515c43269056"
 
 [metadata.files]
 annotated-types = []
@@ -349,10 +380,12 @@ fastapi = []
 h11 = []
 idna = []
 iniconfig = []
+kaleido = []
 numpy = []
 packaging = []
 pandas = []
 pillow = []
+plotly = []
 pluggy = []
 pydantic = []
 pydantic-core = []
@@ -369,6 +402,7 @@ six = [
 ]
 sniffio = []
 starlette = []
+tenacity = []
 typing-extensions = []
 tzdata = []
 urllib3 = []
