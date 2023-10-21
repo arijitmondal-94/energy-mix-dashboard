@@ -72,4 +72,5 @@ class GenerationMixService(object):
         isp_generation_mix = cls.gen_mix_api.get_generation_mix_between_period(from_, to_)
         months_generation_mix = cls._aggregate_months_generation_mix(isp_generation_mix)
         return months_generation_mix
+
         
