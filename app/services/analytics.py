@@ -1,15 +1,17 @@
-from app.api_requests.dto import FuelType, GenerationMixDTO
-from app.api_requests.carbon_intensity_requests import GenerationMixAPI
+from api_requests.dto import FuelType, GenerationMixDTO
+from api_requests.carbon_intensity_requests import GenerationMixAPI
 import pandas as pd
 from dateutil.relativedelta import relativedelta
 from logging import getLogger
+from datetime import datetime
 from typing import List
 
 logger = getLogger(__name__)
 
+
 class GenerationMixService(object):
     gen_mix_api = GenerationMixAPI()
-    
+
     @classmethod
     def _aggregate_months_generation_mix(cls, generation_mix_list: List[GenerationMixDTO]) -> GenerationMixDTO:
         biomass, coal, imports, gas, nuclear, other, hydro, solar, wind = (
@@ -55,8 +57,7 @@ class GenerationMixService(object):
                 'generationmix': [biomass, coal, imports, gas, nuclear, other, hydro, solar, wind]
             }
         )
-                    
-    
+
     @classmethod
     def get_last_months_energy_mix(cls) -> GenerationMixDTO:
         """function determines last full month and gets the generation mix data from carbon intensity apis
@@ -66,11 +67,26 @@ class GenerationMixService(object):
         """
         current_date = pd.Timestamp.now('Europe/London').normalize()
         if not current_date.is_month_end:
-            to_ = pd.Timestamp(current_date - relativedelta(days=current_date.day - 1))
+            to_ = pd.Timestamp(
+                current_date - relativedelta(days=current_date.day - 1))
             from_ = to_ - relativedelta(days=to_.daysinmonth + 1)
-            logger.debug(f'Getting Generation Mix Data between {from_} - {to_}')
-        isp_generation_mix = cls.gen_mix_api.get_generation_mix_between_period(from_, to_)
-        months_generation_mix = cls._aggregate_months_generation_mix(isp_generation_mix)
+            logger.debug(
+                f'Getting Generation Mix Data between {from_} - {to_}')
+        isp_generation_mix = cls.gen_mix_api.get_generation_mix_between_period(
+            from_, to_)
+        months_generation_mix = cls._aggregate_months_generation_mix(
+            isp_generation_mix)
         return months_generation_mix
 
-        
+    @classmethod
+    def get_generation_mix_selected_date(cls, index_date: datetime) -> GenerationMixDTO:
+        """function determines last full month and gets the generation mix data from carbon intensity apis
+
+        Returns:
+            GenerationMixDTO: _description_
+        """
+        logger.debug(
+            f'Getting Generation Mix Data for {index_date}')
+        isp_generation_mix = cls.gen_mix_api.get_generation_for_date(index_date)
+        aggragted_daily_mix = cls._aggregate_months_generation_mix(isp_generation_mix)
+        return aggragted_daily_mix
