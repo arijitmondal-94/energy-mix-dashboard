@@ -17,7 +17,6 @@ plotly = "^5.17.0"
 kaleido = "0.2.1"
 alembic = "^1.12.0"
 FastAPI-SQLAlchemy = "^0.2.1"
-psycopg2 = "^2.9.9"
 python-dotenv = "^1.0.0"
 streamlit = "^1.29.0"
 
