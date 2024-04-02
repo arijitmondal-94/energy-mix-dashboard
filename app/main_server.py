@@ -3,7 +3,7 @@ from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import FileResponse
 from logging import getLogger
 from app.api_requests.dto import GenerationMixDTO
-from app.services.analytics import GenerationMixService
+from app.services.analytics import GenerationMixService, CO2IntensityServices
 from app.services.poster import GeneratePoster
 from app.api_requests.carbon_intensity_requests import GenerationMixAPI
 from typing import List
@@ -15,6 +15,7 @@ logger = getLogger(__name__)
 
 app = FastAPI()
 generation_mix_service = GenerationMixService()
+co2_intensity_regional_services = CO2IntensityServices()
 
 
 @app.get("/")
@@ -36,6 +37,15 @@ async def last_month_energy_mix() -> GenerationMixDTO:
         List[GenerationMixDTO]: aggragted generation mix of the last complete month
     """
     return generation_mix_service.get_last_months_energy_mix()
+
+@app.get("/co2_regional/today")
+async def today_regional_co2_intensity():
+    return co2_intensity_regional_services.get_todays_co2_intensity()
+
+@app.get("/co2_regional/daily")
+async def today_regional_co2_intensity(from_date: datetime):
+    return co2_intensity_regional_services.get_daily_co2_intensity(from_date)
+    
 
 
 @app.get("/generation_mix/last_month/poster")

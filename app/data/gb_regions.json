@@ -1,0 +1,76 @@
+{
+    "name": "GB Regions",
+    "regions": [
+        {
+            "id": 1,
+            "short_name": "north_scotland",
+            "name": "North Scotland"
+        },
+        {
+            "id": 2,
+            "short_name": "south_scotland",
+            "name": "South Scotland"
+        },
+        {
+            "id": 3,
+            "short_name": "north_west_england",
+            "name": "North West England"
+        },
+        {
+            "id": 4,
+            "short_name": "north_east_england",
+            "name": "North East England"
+        },
+        {
+            "id": 5,
+            "short_name": "yorkshire",
+            "name": "Yorkshire"
+        },
+        {
+            "id": 6,
+            "short_name": "north_wales",
+            "name": "North Wales"
+        },
+        {
+            "id": 7,
+            "short_name": "south_wales",
+            "name": "South Wales"
+        },
+        {
+            "id": 8,
+            "short_name": "west_midlands",
+            "name": "West Midlands"
+        },
+        {
+            "id": 9,
+            "short_name": "east_midlands",
+            "name": "East Midlands"
+        },
+        {
+            "id": 10,
+            "short_name": "east_england",
+            "name": "East England"
+        },
+        {
+            "id": 11,
+            "short_name": "south_west_england",
+            "name": "South West England"
+        },
+        {
+            "id": 12,
+            "short_name": "south_england",
+            "name": "South England"
+        },
+        {
+            "id": 13,
+            "short_name": "london",
+            "name": "London"
+        },
+        {
+            "id": 14,
+            "short_name": "south_east_england",
+            "name": "South East England"
+        }
+    ]
+    
+}

@@ -1,5 +1,6 @@
-from api_requests.dto import FuelType, GenerationMixDTO
+from api_requests.dto import FuelType, GenerationMixDTO, CO2Regions
 from api_requests.carbon_intensity_requests import GenerationMixAPI
+from api_requests.carbon_intensity_requests import CO2IntensityRegionalAPI
 import pandas as pd
 from dateutil.relativedelta import relativedelta
 from logging import getLogger
@@ -87,6 +88,35 @@ class GenerationMixService(object):
         """
         logger.debug(
             f'Getting Generation Mix Data for {index_date}')
-        isp_generation_mix = cls.gen_mix_api.get_generation_for_date(index_date)
-        aggragted_daily_mix = cls._aggregate_months_generation_mix(isp_generation_mix)
+        isp_generation_mix = cls.gen_mix_api.get_generation_for_date(
+            index_date)
+        aggragted_daily_mix = cls._aggregate_months_generation_mix(
+            isp_generation_mix)
         return aggragted_daily_mix
+
+
+class CO2IntensityServices(object):
+    carbon_intensity_regional_api = CO2IntensityRegionalAPI()
+
+    @classmethod
+    def get_regions(cls) -> dict:
+        return cls.carbon_intensity_regional_api.get_regions()['regions']
+
+    @classmethod
+    def get_daily_co2_intensity(cls, from_datetime: datetime):
+        regional_co2_intensity = cls.carbon_intensity_regional_api.get_co2_intensity_pt24h(
+            from_datetime)
+        return regional_co2_intensity
+
+    @classmethod
+    def get_regional_co2_intensity(cls, from_datetime, region_id):
+        regional_co2_intensity = cls.carbon_intensity_regional_api.get_regional_co2_intensity_pt24h(
+            region_id['id'], from_datetime)
+        return regional_co2_intensity
+
+    @classmethod
+    def get_current_regional_co2_intensity(cls) -> CO2Regions:
+        co2_intensity = cls.carbon_intensity_regional_api.get_regional_co2_intensity_current_hh()
+        return co2_intensity.regions
+            
+        
