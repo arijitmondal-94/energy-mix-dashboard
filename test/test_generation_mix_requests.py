@@ -4,8 +4,8 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
-from app.api_requests.carbon_intensity_requests import GenerationMixAPI
-from app.api_requests.dto import GenerationMixDTO
+from api_requests.carbon_intensity_requests import GenerationMixAPI
+from api_requests.dto import GenerationMixDTO
 
 TEST_FILE_PATH = "test/data/generation_mix.json"
 

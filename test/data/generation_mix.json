@@ -186,7 +186,7 @@
                 },
                 {
                     "fuel": "gas",
-                    "perc": 22.4
+                    "perc": 22.5
                 },
                 {
                     "fuel": "nuclear",
@@ -198,7 +198,7 @@
                 },
                 {
                     "fuel": "hydro",
-                    "perc": 1.7
+                    "perc": 1.6
                 },
                 {
                     "fuel": "solar",

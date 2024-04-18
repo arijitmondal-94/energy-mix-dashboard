@@ -61,5 +61,5 @@ class GBEnergyAnalytics(object):
 
     def init_app(self):
         # self.run_co2_intensity_regional_container()
-        self.run_co2_intensity_map()
+        # self.run_co2_intensity_map()
         self.run_generation_mix_container()

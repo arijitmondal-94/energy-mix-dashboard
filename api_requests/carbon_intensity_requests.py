@@ -22,7 +22,7 @@ class CarbonIntensity(object):
         }
         self.base_url: str = "https://api.carbonintensity.org.uk/"
         self.regions = self.__load_regions_config(
-            Path("app/data/gb_regions.json"))
+            Path("data/gb_regions.json"))
 
     def __load_regions_config(self, path: Path) -> dict:
         if path.exists():
