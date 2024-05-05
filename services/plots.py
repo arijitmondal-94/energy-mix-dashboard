@@ -49,6 +49,16 @@ class DashboardPlots(object):
         return fig
 
     @classmethod
+    def plot_generation_mix_donut(cls, data: GenerationMixDTO) -> go.Figure:
+
+        labels = [fuel.fuel.capitalize() for fuel in data.generationmix]
+        values = [fuel.perc for fuel in data.generationmix]
+        fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.5)])
+        fig.update_layout(paper_bgcolor='rgba(0,0,0,0)')
+
+        return fig
+
+    @classmethod
     def daily_co2_intensity_map(cls, data: List[CO2Regions], geojson_obj: dict = None) -> go.Figure:
         intensity_list = []
 

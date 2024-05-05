@@ -1,6 +1,7 @@
 from api_requests.dto import FuelType, GenerationMixDTO, CO2Regions
 from api_requests.carbon_intensity_requests import GenerationMixAPI
 from api_requests.carbon_intensity_requests import CO2IntensityRegionalAPI
+from api_requests.elexon.bm_prices import BalancingPrice
 import pandas as pd
 from dateutil.relativedelta import relativedelta
 from logging import getLogger
@@ -120,3 +121,15 @@ class CO2IntensityServices(object):
         return co2_intensity.regions
             
         
+class ElexonBMPricesService(object):
+    elexon_bm_prices_api = BalancingPrice()
+    
+    def settlement_prices_current_day(cls) -> pd.DataFrame:
+        data = cls.elexon_bm_prices_api.settelement_prices_day(datetime.now().date())
+        return pd.DataFrame([d.model_dump() for d in data])
+    
+    def settlement_prices_for_day(cls) -> pd.DataFrame:
+        pass
+    
+    def settlement_prices_for_day_period(cls) -> pd.DataFrame:
+        pass
