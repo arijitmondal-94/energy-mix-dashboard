@@ -81,8 +81,6 @@ class GBEnergyAnalytics(object):
             fig = self.daily_generation_mix()
             container_3.plotly_chart(fig, use_container_width=True)
             
-    def bm_prices_position(self) -> None:
-        with self.c_2
 
     def init_app(self):
         # self.run_co2_intensity_regional_container()
