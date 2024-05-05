@@ -8,4 +8,6 @@ def time_to_isp(index_time: time) -> int:
     return 48 if isp == 0 else isp
 
 def isp_to_time(isp: int) -> time:
-    pass
+    time_range = pd.date_range("00:00", "23:30", freq="30min").time
+    
+    return time_range[isp - 1]

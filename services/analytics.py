@@ -6,6 +6,7 @@ import pandas as pd
 from dateutil.relativedelta import relativedelta
 from logging import getLogger
 from datetime import datetime
+from utils.datetime_helper import isp_to_time
 from typing import List
 
 logger = getLogger(__name__)
@@ -124,9 +125,13 @@ class CO2IntensityServices(object):
 class ElexonBMPricesService(object):
     elexon_bm_prices_api = BalancingPrice()
     
+    @classmethod
     def settlement_prices_current_day(cls) -> pd.DataFrame:
         data = cls.elexon_bm_prices_api.settelement_prices_day(datetime.now().date())
-        return pd.DataFrame([d.model_dump() for d in data])
+        df = pd.DataFrame([d.model_dump() for d in data])
+        df.index = pd.to_datetime(df.startTime, format="%Y-%m-%dT%H:%M:%SZ", utc=True)
+        
+        return df
     
     def settlement_prices_for_day(cls) -> pd.DataFrame:
         pass

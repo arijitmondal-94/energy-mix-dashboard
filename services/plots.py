@@ -86,4 +86,12 @@ class DashboardPlots(object):
                                    )
         # fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 
+    @classmethod
+    def daily_bm_prices(cls, data: pd.DataFrame) -> go.Figure:
+        fig = go.Figure()
+        fig.add_trace(go.Scattergl(x=data.index, y=data["systemSellPrice"], mode="lines"))
+        fig.add_trace(go.Bar(x=data.index, y=data["netImbalanceVolume"]))
+        
         return fig
+    
+        
