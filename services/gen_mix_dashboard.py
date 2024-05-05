@@ -2,7 +2,7 @@ import streamlit as st
 from logging import getLogger
 from services.plots import DashboardPlots
 from services.analytics import GenerationMixService, CO2IntensityServices, ElexonBMPricesService
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 import geopandas as gpd
 
@@ -12,10 +12,13 @@ st.set_page_config(layout='wide')
 
 class GBEnergyAnalytics(object):
 
-    def __init__(self, name: str = 'UK Generation Mix') -> None:
+    def __init__(self, name: str = 'UK Generation Mix: :blue[Live]') -> None:
         self.name = name
         st.title(self.name, "Middle")
-        self.date = datetime.now()
+        if datetime.now().hour == 0 and datetime.now().minute < 30:
+            self.date = datetime.now() - timedelta(minutes=30)
+        else:
+            self.date = datetime.now()
         self.time = self.date.time()
         self.generation_mix_container = st.container()
         self.carbon_intensity_container = st.container()
@@ -85,9 +88,9 @@ class GBEnergyAnalytics(object):
             
             container = st.container()
             container.write("Elexon BM Position and Prices")
-            bm_pices_df = ElexonBMPricesService.settlement_prices_current_day()
+            bm_pices_df = ElexonBMPricesService.settlement_prices_for_day(self.date)
             fig = DashboardPlots.daily_bm_prices(bm_pices_df)
-            container.plotly_chart(fig)
+            container.plotly_chart(fig, use_container_width=True)
     
     def init_app(self):
         # self.run_co2_intensity_regional_container()

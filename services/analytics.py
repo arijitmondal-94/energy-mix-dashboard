@@ -133,8 +133,13 @@ class ElexonBMPricesService(object):
         
         return df
     
-    def settlement_prices_for_day(cls) -> pd.DataFrame:
-        pass
+    @classmethod
+    def settlement_prices_for_day(cls, date: datetime) -> pd.DataFrame:
+        data = cls.elexon_bm_prices_api.settelement_prices_day(date.date())
+        df = pd.DataFrame([d.model_dump() for d in data])
+        df.index = pd.to_datetime(df.startTime, format="%Y-%m-%dT%H:%M:%SZ", utc=True)
+        
+        return df
     
     def settlement_prices_for_day_period(cls) -> pd.DataFrame:
         pass
